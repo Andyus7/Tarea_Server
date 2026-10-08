@@ -1,0 +1,299 @@
+{
+	"info": {
+		"_postman_id": "c1f7b492-9a84-4e20-bf32-d8194b159f80",
+		"name": "Products API - Server with MySQL2 TS",
+		"description": "Colección HTTP completa para probar la API REST de productos desarrollada con Express, TypeScript y MySQL2.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. Consulta general (getAll)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/v1/products/getAll?active=true",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"getAll"
+					],
+					"query": [
+						{
+							"key": "active",
+							"value": "true",
+							"description": "Filtra productos activos"
+						}
+					]
+				},
+				"description": "Obtiene la lista de todos los productos con estado activo."
+			},
+			"response": []
+		},
+		{
+			"name": "2. Consulta por ID activo (getById)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/v1/products/getById/1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"getById",
+						"1"
+					]
+				},
+				"description": "Obtiene un único producto activo por su identificador."
+			},
+			"response": []
+		},
+		{
+			"name": "3. Crear producto (create)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Audífonos Gamer Pro\",\n  \"price\": 1250.50,\n  \"stock\": 15,\n  \"description\": \"Audífonos inalámbricos con cancelación de ruido y micrófono RGB.\",\n  \"brand\": \"SoundPulse\",\n  \"img\": \"audifonos-gamer-pro.jpg\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/v1/products/create",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"create"
+					]
+				},
+				"description": "Inserta un nuevo producto con active = TRUE. Retorna 201 Created."
+			},
+			"response": []
+		},
+		{
+			"name": "4. Actualizar producto completo (update)",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Audífonos Gamer Pro Max\",\n  \"price\": 1400.00,\n  \"stock\": 20,\n  \"description\": \"Edición especial mejorada con almohadillas viscoelásticas.\",\n  \"brand\": \"SoundPulse Extreme\",\n  \"img\": \"audifonos-gamer-pro-max.jpg\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/v1/products/update/1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"update",
+						"1"
+					]
+				},
+				"description": "Actualiza la información completa de un producto activo."
+			},
+			"response": []
+		},
+		{
+			"name": "5. Cambiar sólo precio (change-price)",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"price\": 1199.99\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/v1/products/change-price/1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"change-price",
+						"1"
+					]
+				},
+				"description": "Modifica exclusivamente el precio del producto activo."
+			},
+			"response": []
+		},
+		{
+			"name": "6. Baja lógica (delete)",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/v1/products/delete/1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"delete",
+						"1"
+					]
+				},
+				"description": "Da de baja lógica el producto (actualiza active a FALSE)."
+			},
+			"response": []
+		},
+		{
+			"name": "7. Comprobar baja en getAll (no debe aparecer)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/v1/products/getAll",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"getAll"
+					]
+				},
+				"description": "Comprueba que los productos dados de baja ya no figuran en la lista de activos."
+			},
+			"response": []
+		},
+		{
+			"name": "8. Comprobar baja en getById (debe retornar 404)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/v1/products/getById/1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"getById",
+						"1"
+					]
+				},
+				"description": "Comprueba que consultar un producto dado de baja responde 404 Not Found."
+			},
+			"response": []
+		},
+		{
+			"name": "9. Error 404 - ID inexistente",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/v1/products/getById/99999",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"getById",
+						"99999"
+					]
+				},
+				"description": "Caso de prueba: ID que no existe en la base de datos."
+			},
+			"response": []
+		},
+		{
+			"name": "10. Error 400 - Datos inválidos (precio negativo o no numérico)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Producto Inválido\",\n  \"price\": -50,\n  \"stock\": 10,\n  \"description\": \"Prueba de validación de precio incorrecto\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/v1/products/create",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"create"
+					]
+				},
+				"description": "Caso de prueba: Validación de precio negativo al crear un producto (responde 400)."
+			},
+			"response": []
+		},
+		{
+			"name": "11. Error 400 - ID inválido (no entero positivo)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/v1/products/getById/abc",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"getById",
+						"abc"
+					]
+				},
+				"description": "Caso de prueba: ID no numérico en parámetro de ruta (responde 400)."
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:3000",
+			"type": "string"
+		}
+	]
+}
+
